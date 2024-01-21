@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './assets/css/reset.css';
+
+#app-root {
+    height: 100%;
+}
+
+main {
+    height: 100vh;
+}
