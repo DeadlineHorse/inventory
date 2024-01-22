@@ -9,14 +9,62 @@ const router = createRouter({
         {
             path: "/signin",
             name: "signin",
-            component: () => import("../pages/signin.vue"),
-            alias: ['/']
+            component: () => import("../pages/guest/signin.vue"),
+            alias: ['/'],
+            meta: {
+                layout: 'Layout'
+            }
         },
 
         {
             path: "/dashboard",
             name: "dashboard",
-            component: () => import("../pages/dashboard.vue")
+            component: () => import("../pages/auth/dashboard.vue"),
+            meta: {
+                layout: 'Layout'
+            }
+        },
+
+        {
+            path: "/items",
+            name: "items",
+            component: () => import("../pages/auth/items.vue"),
+            meta: {
+                layout: 'Layout'
+            },
+            children: [{
+
+                path: ":id",
+                component: () => import("../pages/auth/item.vue")
+
+            }]
+        },
+
+        {
+            path: "/import",
+            name: "import",
+            component: () => import("../pages/auth/import.vue"),
+            meta: {
+                layout: 'Layout'
+            }
+        },
+
+        {
+            path: "/export",
+            name: "export",
+            component: () => import("../pages/auth/export.vue"),
+            meta: {
+                layout: 'Layout'
+            }
+        },
+
+        {
+            path: "/profile",
+            name: "profile",
+            component: () => import("../pages/auth/profile.vue"),
+            meta: {
+                layout: 'Layout'
+            }
         }
 
     ]
@@ -27,7 +75,17 @@ router.beforeEach((to) => {
 
     const AuthStorage = localStorage.getItem("auth") || false
 
-    const AuthGranted =  JSON.parse(AuthStorage) ?? AuthStorage
+    let AuthGranted;
+
+    try {
+
+        AuthGranted = JSON.parse(AuthStorage)
+
+    } catch(error) {
+
+        AuthGranted = AuthStorage
+
+    }
 
     if(!AuthGranted && to.name !== 'signin') {
 

@@ -4,10 +4,12 @@
             <h3 class="mb-4 fw-light">Sign in to your account</h3>
             <div class="mb-3">
                 <div class="mb-3">
-                    <input type="text" class="form-control w-full" placeholder="Email address ..." v-model="form.inputs.email" :disabled="form.loading">
+                    <input type="text" class="form-control w-full" placeholder="Email address ..."
+                        v-model="form.inputs.email" :disabled="form.loading">
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control w-full" placeholder="Account password ..." v-model="form.inputs.password" :disabled="form.loading">
+                    <input type="text" class="form-control w-full" placeholder="Account password ..."
+                        v-model="form.inputs.password" :disabled="form.loading">
                 </div>
             </div>
             <div class="mb-3">
@@ -16,17 +18,16 @@
                         <span role="status">Signing ...</span>
                     </div>
                     <span v-else>Sign in</span>
-                </button> 
-            </div>
-            <div class="mb-4">
-                <p class="text-center fw-light">RDA - Inventory base 2024</p>
+                </button>
             </div>
         </form>
     </main>
 </template>
 
 <script>
-import api from '../services/api'
+import api from '../../services/api'
+
+import { AuthStore } from '../../store/AuthStore'
 
 export default {
 
@@ -71,12 +72,12 @@ export default {
 
             })
 
-            localStorage.setItem("auth", JSON.stringify({ user: {}, token: null }))
+            AuthStore.signin({ user: {}, token: null })
 
             this.$router.replace({ name: 'dashboard' })
 
         }
-    
+
     }
 
 }
